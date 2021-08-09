@@ -28,8 +28,17 @@ function preload(){
 
 function draw(){
     image(video , 0 , 0 , 600 , 500 );
+    status_song1="";
     fill("#FF0000");
     stroke("#FF0000");
+    if(scoreRightWrist>0.2){
+        circle(rightWristX,rightWristY,20);
+        song1.stop();
+        if(status_song1 =="false"){
+            song.play();
+            document.getElementById("song").innerHTML="Song 1 is Played";
+        }
+    }
 }
 
 function gotPoses(results){
@@ -37,11 +46,16 @@ function gotPoses(results){
         console.log(results);
        
         LeftWristX=results[0].pose.leftWrist.x;
+        
         LeftWristY=results[0].pose.leftWrist.y;
         console.log("leftWristx"+LeftWristX+"leftWristY"+LeftWristY);
 
         RightWristX=results[0].pose.rightWrist.x;
         RightWristY=results[0].pose.rightWrist.y;
         console.log("rightWristx"+RightWristX+"rightWristY"+RightWristY);
+     
+      
+        scoreRightWrist=results[0].pose.keypoints[9].score;
+        
     }
 }
